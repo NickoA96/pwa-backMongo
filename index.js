@@ -13,7 +13,6 @@ const __dirname = dirname(__filename);
 
 
 import db from './db/db.js';
-import dbClientes from './db/dbClientes.js';
 
 import productRoutes from './routes/Product.routes.js';
 import clientesRoutes from './routes/Clientes.routes.js';
@@ -24,12 +23,16 @@ const app = express();
 app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/public'));
+
 app.use ('/', productRoutes);
 app.use ('/clientes', clientesRoutes);
-app.use(express.static(__dirname + '/public'));
+
+
 
 
 app.listen(PORT, () => {
-    // console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
 

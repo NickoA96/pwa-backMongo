@@ -5,7 +5,10 @@ const productSchema = new Schema({
     nombre: {type:String, required:true},
     descripcion: {type:String, required:true},
     precio: {type:String, required:true},
-    img: {type:String, required:true},
+    img: {
+        data: Buffer,
+        contentType: String,
+    },
     },
     {
     collection: "productos",
