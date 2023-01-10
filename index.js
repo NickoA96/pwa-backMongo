@@ -27,7 +27,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 
 app.use ('/', productRoutes);
-app.use ('/clientes', clientesRoutes);
+app.use ('/', clientesRoutes);
 
 
 
