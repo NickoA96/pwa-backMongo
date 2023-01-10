@@ -9,6 +9,7 @@ const productSchema = new Schema({
         data: Buffer,
         contentType: String,
     },
+    cantidad : {type:Number},
     },
     {
     collection: "productos",
