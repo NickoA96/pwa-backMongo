@@ -5,6 +5,8 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import cookieParser from 'cookie-parser';
 
+PORT = process.env.PORT || 8000;
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,7 +29,7 @@ app.use ('/clientes', clientesRoutes);
 app.use(express.static(__dirname + '/public'));
 
 
-app.listen(8000, () => {
+app.listen(PORT, () => {
     // console.log(`Server is running on port 8000`);
 });
 
