@@ -1,9 +1,9 @@
 import ClientesModel from "../models/clientesModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import "dotenv/config";
 import {promisify} from "util";
-dotenv.config();
+
 
 
 

@@ -1,26 +1,27 @@
 import ProductModel from "../models/productsModel.js";
-
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+
+
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 
 
 //** configuracion de multer **//
 
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, '../public/uploads'),
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, '../public/uploads'));
+    },
     filename: (req, file, cb) => {
         cb(null, `${Date.now()}-${file.originalname}`);
     }
 });
 
-const upload = multer({storage: storage})
+const uploads = multer({storage: storage})
 
-export const uploadFile = upload.single('img');
 
 
 
@@ -54,28 +55,16 @@ export const getProductById = async (req, res) => {
 
 
 export const createProduct = async (req, res) => {
-    //subir la imagen a la carpeta public y guardar la ruta en la base de datos
-    uploadFile(req, res, async (error) => {
-        if (error) {
-            res.json(error);
-        } else {
-            try {
-                const {nombre, descripcion, precio, cantidad} = req.body;
-                const img = req.file.filename;
-                await ProductModel.create({
-                    nombre,
-                    img,
-                    descripcion,
-                    precio,
-                    cantidad
-                });
-                res.json({"message": 'Producto creado'});
-            } catch (error) {
-                res.json(error);
-            }
-        }
-    })
+    uploads.single('img');
+    try {
+        const product = new ProductModel(req.body);
+        await product.save();
+        res.json({"message": 'Producto creado'});
+    } catch (error) {
+        res.json(error);
+    }
 }
+
 
 
 //actualizar un producto
