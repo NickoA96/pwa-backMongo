@@ -60,13 +60,14 @@ export const createProduct = async (req, res) => {
             res.json(error);
         } else {
             try {
-                const {nombre, descripcion, precio} = req.body;
+                const {nombre, descripcion, precio, cantidad} = req.body;
                 const img = req.file.filename;
                 await ProductModel.create({
                     nombre,
                     img,
                     descripcion,
-                    precio
+                    precio,
+                    cantidad
                 });
                 res.json({"message": 'Producto creado'});
             } catch (error) {
@@ -75,37 +76,6 @@ export const createProduct = async (req, res) => {
         }
     })
 }
-
-export const createProduct2 = async (req, res) => {
-    // subir el archivo a firebase y guardar la url en la base de datos
-    uploadFile(req, res, async (error) => {
-        if (error) {
-            res.json(error);
-        } else {
-            try {
-                const {nombre, descripcion, precio} = req.body;
-                const img = req.file.filename;
-                await ProductModel.create({
-                    nombre,
-                    img,
-                    descripcion,
-                    precio
-                });
-                res.json({"message": 'Producto creado'});
-            } catch (error) {
-                res.json(error);
-            }
-        }
-    }
-    )
-}
-
-
-
-
-
-
-
 
 
 //actualizar un producto
