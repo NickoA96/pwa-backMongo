@@ -65,11 +65,10 @@ export const createProduct = async (req, res) => {
     }
 }
 
-
-
 //actualizar un producto
 
 export const updateProduct = async (req, res) => {
+    uploads.single('img');
     try {
         const id = req.params.id;
         await ProductModel.updateOne( {_id :id }, req.body).then( res => {
@@ -94,6 +93,4 @@ export const deleteProduct = async (req, res) => {
         res.json(error);
     }
 }
-
-
 
